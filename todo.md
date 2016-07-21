@@ -1,7 +1,8 @@
 #To do list
 Look at:
-AlexNet/VGGNet/GoogLeNet/Unet - Net frameworks
-LabelMe/Imagenet - Images
+UGHHHH - GET OFFICIAL AKC LIST AND SCRAPE/WHATEVER TO GET THE RIGHT DAMN PICTURES  
+AlexNet/VGGNet/GoogLeNet/Unet - Net frameworks  
+LabelMe/Imagenet - Images  
 
 Misc:  
 Finish CNN lectures  
