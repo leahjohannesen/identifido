@@ -1,4 +1,7 @@
 #To do list
+Look at:
+AlexNet/VGGNet/GoogLeNet/Unet - Net frameworks
+LabelMe/Imagenet - Images
 
 Misc:  
 Finish CNN lectures  
