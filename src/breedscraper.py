@@ -43,9 +43,8 @@ def scrape_for_image_num(dog_frame):
     filter_dog_frame['Images'] = np.nan
     return filter_dog_frame
 
-img_list_link = 'http://www.image-net.org/api/text/imagenet.synset.geturls?'
-
 def make_init_dog_list(filter_dog_frame):
+    img_list_link = 'http://www.image-net.org/api/text/imagenet.synset.geturls?'
     print "Getting ind image links"
     for filter_idx in filter_dog_frame.index:
         full_link = filter_dog_frame.loc[filter_idx, 'Net']
@@ -59,23 +58,18 @@ def make_init_dog_list(filter_dog_frame):
     filter_dog_frame.to_csv(save_loc + 'doglist.csv')
     return
 
-def img_list():
-    print "Scraping for images"
-    #path stuff
-    img_list_path = save_loc + 'img_list/'
-    try:
-        shutil.rmtree(img_list_path)
-    except:
-        pass
-    os.mkdir(img_list_path)
 
-    #read in the csv
+
+def full_image_list():
+    img_list_link = 'http://www.image-net.org/api/text/imagenet.synset.geturls?'
+
     filter_dog_frame = pd.read_csv(save_loc + 'doglist.csv')
     final_dog = filter_dog_frame[filter_dog_frame['Images'] > 1000]
 
+    frame_list = []
     for filter_idx in final_dog.index:
         try:
-            breed = final_dog.loc[filter_idx, 'Breed']
+            breed = re.sub('\s', '', final_dog.loc[filter_idx, 'Breed'])
             full_link = final_dog.loc[filter_idx, 'Net']
             breed_link = re.search("\?(.*)", full_link).groups()[0]
             img_page = requests.get(img_list_link + breed_link)
@@ -83,9 +77,44 @@ def img_list():
             img_link_full = img_soup.text
             img_link_full = re.sub('[\n]', '', img_link_full)
             img_link_list = img_link_full.split('\r')
-            breed_series = pd.Series(img_link_list, name='Link')
+            breed_frame = pd.DataFrame(img_link_list, columns=['Link'])
+            breed_frame['Breed'] = breed
             print breed
-            csv_path = img_list_path + breed + '.csv'
-            breed_series.to_csv(csv_path)
+            frame_list.append(breed_frame)
         except:
-            next
+            pass
+    master_frame = pd.concat(frame_list)
+    master_frame.to_csv(save_loc + 'master_list.csv', header=False, encoding='utf-8', sep='\t')
+
+
+
+# def img_list():
+#     print "Scraping for images"
+#     #path stuff
+#     img_list_path = save_loc + 'img_list/'
+#     try:
+#         shutil.rmtree(img_list_path)
+#     except:
+#         pass
+#     os.mkdir(img_list_path)
+#
+#     #read in the csv
+#     filter_dog_frame = pd.read_csv(save_loc + 'doglist.csv')
+#     final_dog = filter_dog_frame[filter_dog_frame['Images'] > 1000]
+#
+#     for filter_idx in final_dog.index:
+#         try:
+#             breed = final_dog.loc[filter_idx, 'Breed']
+#             full_link = final_dog.loc[filter_idx, 'Net']
+#             breed_link = re.search("\?(.*)", full_link).groups()[0]
+#             img_page = requests.get(img_list_link + breed_link)
+#             img_soup = BeautifulSoup(img_page.text, 'html.parser')
+#             img_link_full = img_soup.text
+#             img_link_full = re.sub('[\n]', '', img_link_full)
+#             img_link_list = img_link_full.split('\r')
+#             breed_series = pd.Series(img_link_list, name='Link')
+#             print breed
+#             csv_path = img_list_path + breed + '.csv'
+#             breed_series.to_csv(csv_path)
+#         except:
+#             next
