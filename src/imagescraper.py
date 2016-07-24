@@ -39,7 +39,3 @@ def image_scrape_test():
                 pass
             counter += 1
         print "Breed complete."
-
-if __name__ == '__main__':
-    make_dir()
-    image_scrape_test()
