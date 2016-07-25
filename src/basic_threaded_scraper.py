@@ -6,6 +6,9 @@ import shutil
 import urllib2
 import multiprocessing
 import threading
+import time
+
+open_docs = 10000
 
 def make_master_dir(home):
     print 'Making home dir'
@@ -26,23 +29,26 @@ def make_dog_dir(df, path):
         os.mkdir(breed_path)
 
 def img_threader(sub_array):
+    print len(sub_array)
     threads = []
     for row in sub_array:
         t = threading.Thread(target=get_img, args=(row[2],row[1],row[0],test_dir))         
         threads.append(t)
+        while threading.active_count() > open_docs - 500: 
+            time.sleep(10)
         t.start()
 
 def get_img(breed, link, num, test_dir):
-    if num % 250 == 0:
-        print 'Breed: {}, Pic: {}'.format(breed,num)
-    
     img_filename = test_dir + breed + '/' + str(num) + '.jpg'
 
+    #for trying to get links, if it breaks, it skips the open portion
     try:
         img_link = urllib2.urlopen(link)
     except:  
         return
     
+    if num % 100 == 0:
+        print 'Breed: {}, Pic: {}'.format(breed,num)
     f = open(img_filename, 'wb')
     f.write(img_link.read())
     f.close()
