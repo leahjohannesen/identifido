@@ -3,10 +3,12 @@ import pandas as pd
 import numpy as np
 import os
 import shutil
-import urllib
+import urllib2
 import multiprocessing
+import threading
 
 def make_master_dir(home):
+    print 'Making home dir'
     data_dir = home + 'data/'
     test_dir = data_dir + 'test/'
     try:
@@ -17,27 +19,40 @@ def make_master_dir(home):
     os.mkdir(test_dir)
 
 def make_dog_dir(df, path):
+    print 'Making dog dirs'
     breeds = np.unique(df[2])
     for breed in breeds:
         breed_path = path + breed + '/'
         os.mkdir(breed_path)
 
-def img_prep(thing):
-    get_image(thing[2], thing[1], thing[0], test_dir)
+def img_threader(sub_array):
+    threads = []
+    for row in sub_array:
+        t = threading.Thread(target=get_img, args=(row[2],row[1],row[0],test_dir))         
+        threads.append(t)
+        t.start()
 
-def get_image(breed, link, num, test_dir):
+def get_img(breed, link, num, test_dir):
+    if num % 250 == 0:
+        print 'Breed: {}, Pic: {}'.format(breed,num)
+    
     img_filename = test_dir + breed + '/' + str(num) + '.jpg'
-    print img_filename
+
     try:
-        urllib.urlretrieve(link, img_filename)
-    except:
-        pass
+        img_link = urllib2.urlopen(link)
+    except:  
+        return
+    
+    f = open(img_filename, 'wb')
+    f.write(img_link.read())
+    f.close()
 
 if __name__ == '__main__':
-    home_dir = '/Users/lzkatz/Desktop/Galvanize/Capstone/Identifido/'
+    home_dir = '/home/ubuntu/capstone/'
     csv_dir = home_dir + 'aux_files/'
-    data_dir = home_dir + 'data/'
-    make_master_dir(home_dir)
+    mount_dir = '/data/' 
+    make_master_dir(mount_dir)
+    data_dir = mount_dir + 'data/'
     test_dir = data_dir + 'test/'
 
     master_csv = csv_dir + 'master_list.csv'
@@ -48,5 +63,7 @@ if __name__ == '__main__':
 
     core_count = multiprocessing.cpu_count()
     pool = multiprocessing.Pool(core_count)
-
-    pool.map(img_prep, master_array)
+   
+    split_master_array = np.split(master_array, core_count)
+    pool.map(img_threader, split_master_array)
+   
