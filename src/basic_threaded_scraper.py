@@ -29,7 +29,6 @@ def make_dog_dir(df, path):
         os.mkdir(breed_path)
 
 def img_threader(sub_array):
-    print len(sub_array)
     threads = []
     for row in sub_array:
         t = threading.Thread(target=get_img, args=(row[2],row[1],row[0],test_dir))         
@@ -67,9 +66,10 @@ if __name__ == '__main__':
 
     make_dog_dir(master_df, test_dir)
 
-    core_count = multiprocessing.cpu_count()
-    pool = multiprocessing.Pool(core_count)
+    #core_count = multiprocessing.cpu_count()
+    #pool = multiprocessing.Pool(core_count)
    
-    split_master_array = np.split(master_array, core_count)
-    pool.map(img_threader, split_master_array)
+    #split_master_array = np.split(master_array, core_count)
+    #pool.map(img_threader, split_master_array)
    
+    img_threader(master_array)
