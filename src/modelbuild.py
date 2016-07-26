@@ -9,14 +9,14 @@ import os
 import cPickle
 
 # model name, change each iteration
-train_data_dir = '/home/ubuntu/capstone/train'
-test_data_dir = '/home/ubuntu/capstone/test'
+train_data_dir = '/data/data/train/'
+val_data_dir = '/data/data/val/'
 
 # dimensions of our images.
 img_width, img_height = 200, 200
 
 # parameters
-nb_epoch = 200
+nb_epoch = 10
 
 # this is the augmentation configuration we will use for training
 train_datagen = ImageDataGenerator(
@@ -24,9 +24,10 @@ train_datagen = ImageDataGenerator(
         fill_mode='constant',
         horizontal_flip=True)
 
-test_datagen = ImageDataGenerator(
+val_datagen = ImageDataGenerator(
         rescale=1./255,
-        fill_mode='constant')
+        fill_mode='constant',
+        horizontal_flip=True)
 
 train_generator = train_datagen.flow_from_directory(
         train_data_dir,
@@ -34,8 +35,8 @@ train_generator = train_datagen.flow_from_directory(
         batch_size=100
         )
 
-test_generator = test_datagen.flow_from_directory(
-        test_data_dir,
+val_generator = val_datagen.flow_from_directory(
+        val_data_dir,
         target_size=(img_width, img_height),
         batch_size=50
         )
@@ -70,8 +71,8 @@ output = model.fit_generator(
         	train_generator,
         	samples_per_epoch=train_generator.N,
         	nb_epoch=nb_epoch,
-        	validation_data=test_generator,
-        	nb_val_samples=test_generator.N)
+        	validation_data=val_generator,
+        	nb_val_samples=val_generator.N)
 
 # creates an output folder, saves the model as a json, the weights as an hdf5, and pickles the output info
 curr_last = os.listdir('/home/ubuntu/capstone/model/')[-1]
