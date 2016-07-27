@@ -3,6 +3,7 @@ import scipy.misc as scm
 import numpy as np
 import os
 import threading
+from PIL import Image
 
 def get_default():
     imgpath = '/data/data/notavail.jpg'
@@ -19,6 +20,13 @@ def breed_thread(breed, bad):
 
 def img_check(img, breed_dir, bad):
     train_img_loc = breed_dir + img
+
+    imgPIL = Image.open(train_img_loc)
+    try:
+        imgPIL.load()
+    except:
+        os.remove(train_img_loc)
+
     try:
         img = scni.imread(train_img_loc)
     except:
