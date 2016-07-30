@@ -1,6 +1,6 @@
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
-from keras.layers import Convolution2D, MaxPooling2D
+from keras.layers import Convolution2D, MaxPooling2D, ZeroPadding2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.optimizers import SGD
 import json
@@ -13,10 +13,10 @@ train_data_dir = '/data/data/train/'
 val_data_dir = '/data/data/val/'
 
 # dimensions of our images.
-img_width, img_height = 200, 200
+img_width, img_height = 198, 198
 
 # parameters
-nb_epoch = 10
+nb_epoch = 50
 
 # this is the augmentation configuration we will use for training
 train_datagen = ImageDataGenerator(
@@ -42,21 +42,40 @@ val_generator = val_datagen.flow_from_directory(
         )
 
 model = Sequential()
-model.add(Convolution2D(32, 3, 3, input_shape=(3, img_width, img_height)))
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(ZeroPadding2D((1,1), input_shape=(198,198)
+model.add(Convolution2D(64, 3, 3, activation='relu')
+model.add(ZeroPadding2D((1,1)))
+model.add(Convolution2D(64, 3, 3, activation='relu')
+model.add(MaxPooling2D((2,2), strides=(2,2)))
 
-model.add(Convolution2D(32, 3, 3))
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(ZeroPadding2D((1,1)))
+model.add(Convolution2D(128, 3, 3, activation='relu')
+model.add(ZeroPadding2D((1,1)))
+model.add(Convolution2D(128, 3, 3, activation='relu')
+model.add(MaxPooling2D((2,2), strides=(2,2)))
 
-model.add(Convolution2D(64, 3, 3))
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(ZeroPadding2D((1,1)))
+model.add(Convolution2D(256, 3, 3, activation='relu')
+model.add(ZeroPadding2D((1,1)))
+model.add(Convolution2D(256, 3, 3, activation='relu')
+model.add(MaxPooling2D((2,2), strides=(2,2)))
+
+model.add(ZeroPadding2D((1,1)))
+model.add(Convolution2D(512, 3, 3, activation='relu')
+model.add(ZeroPadding2D((1,1)))
+model.add(Convolution2D(512, 3, 3, activation='relu')
+model.add(MaxPooling2D((2,2), strides=(2,2)))
+
+model.add(ZeroPadding2D((1,1)))
+model.add(Convolution2D(512, 3, 3, activation='relu')
+model.add(ZeroPadding2D((1,1)))
+model.add(Convolution2D(512, 3, 3, activation='relu')
+model.add(MaxPooling2D((2,2), strides=(2,2)))
 
 model.add(Flatten())
-model.add(Dense(64))
-model.add(Activation('relu'))
+model.add(Dense(4096), activation='relu')
+model.add(Dropout(0.5))
+model.add(Dense(4096), activation='relu')
 model.add(Dropout(0.5))
 model.add(Dense(train_generator.nb_class))
 model.add(Activation('softmax'))
