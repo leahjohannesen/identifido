@@ -32,18 +32,21 @@ val_datagen = ImageDataGenerator(
 train_generator = train_datagen.flow_from_directory(
         train_data_dir,
         target_size=(img_width, img_height),
-        batch_size=100
+        batch_size=32
         )
 
 val_generator = val_datagen.flow_from_directory(
         val_data_dir,
         target_size=(img_width, img_height),
-        batch_size=50
+        batch_size=32
         )
 
 model = Sequential()
 model.add(Convolution2D(32, 3, 3, input_shape=(3,img_width,img_height), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2,2)))
+model.add(Convolution2D(32, 3, 3, activation='relu'))
+model.add(Convolution2D(32, 3, 3, activation='relu'))
+model.add(Convolution2D(32, 3, 3, activation='relu'))
+model.add(Convolution2D(32, 3, 3, activation='relu'))
 
 model.add(Flatten())
 model.add(Dense(64, activation='relu'))
