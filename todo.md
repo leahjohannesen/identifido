@@ -16,6 +16,7 @@ Look at padding vs resizing vs keeping only x
 Look at centering and other possible stuff  
 
 Model:
+Try overfitting on small dataset (sanity check)
 Look at adding/changing layers and activations  
 Look at weight initializations (he_normal vs glorot_normal)
 Batch normalization layers
