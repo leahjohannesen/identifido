@@ -1,8 +1,6 @@
 #To do list
 Look at:
-UGHHHH - GET OFFICIAL AKC LIST AND SCRAPE/WHATEVER TO GET THE RIGHT DAMN PICTURES  
 AlexNet/VGGNet/GoogLeNet/Unet - Net frameworks  
-LabelMe/Imagenet - Images  
 
 Misc:  
 Finish CNN lectures  
@@ -19,9 +17,10 @@ Look at centering and other possible stuff
 
 Model:
 Look at adding/changing layers and activations  
-Figure out how to output softmax values from predictor  
-Maybe reduce category size? (Cop out)  
-Figure out how to see "how" they models are wrong. Are more classes wrong then others?
+Look at weight initializations (he_normal vs glorot_normal)
+Batch normalization layers
+Maybe reduce category size?
+Figure out how to see "how" they models are wrong. Are more classes wrong then others? Ind accuracy metrics
 
 Summary:  
 Figure out a concise way to summarize that doesn't require pickling the model (not great for space)  
