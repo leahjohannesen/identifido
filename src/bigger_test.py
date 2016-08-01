@@ -16,7 +16,7 @@ val_data_dir = '/data/data/val/'
 img_width, img_height = 198, 198
 
 # parameters
-nb_epoch = 50
+nb_epoch = 20
 
 # this is the augmentation configuration we will use for training
 train_datagen = ImageDataGenerator(
@@ -43,20 +43,20 @@ val_generator = val_datagen.flow_from_directory(
 
 model = Sequential()
 model.add(ZeroPadding2D((1,1), input_shape=(3,198,198)))
-model.add(Convolution2D(64, 3, 3, activation='relu'))
+model.add(Convolution2D(64, 3, 3, init='he_normal', activation='relu'))
 model.add(ZeroPadding2D((1,1)))
-model.add(Convolution2D(64, 3, 3, activation='relu'))
+model.add(Convolution2D(64, 3, 3, init='he_normal', activation='relu'))
 model.add(MaxPooling2D((2,2), strides=(2,2)))
 
 model.add(ZeroPadding2D((1,1)))
-model.add(Convolution2D(128, 3, 3, activation='relu'))
+model.add(Convolution2D(128, 3, 3, init='he_normal', activation='relu'))
 model.add(ZeroPadding2D((1,1)))
-model.add(Convolution2D(128, 3, 3, activation='relu'))
+model.add(Convolution2D(128, 3, 3, init='he_normal', activation='relu'))
 model.add(MaxPooling2D((2,2), strides=(2,2)))
 model.add(Flatten())
-model.add(Dense(64, activation='relu'))
+model.add(Dense(64, init='he_normal', activation='relu'))
 model.add(Dropout(0.5))
-model.add(Dense(64, activation='relu'))
+model.add(Dense(64, init='he_normal', activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(train_generator.nb_class))
 model.add(Activation('softmax'))
