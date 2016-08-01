@@ -13,7 +13,7 @@ model_path = '/home/ubuntu/capstone/src/pymodels/'
 sys.path.append(model_path)
 model_filename = sys.argv[1]
 
-if len(model_filename) > 0:
+i len(model_filename) > 0:
     mod = __import__(model_filename)
 
 # model name, change each iteration
