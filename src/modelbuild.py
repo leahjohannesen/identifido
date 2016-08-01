@@ -7,7 +7,14 @@ import json
 import h5py
 import os
 import cPickle
-from modelpy.alexnet import build_model
+import sys
+
+model_path = '/home/ubuntu/capstone/src/pymodels/'
+sys.path.append(model_path)
+model_filename = sys.argv[1]
+
+if len(model_filename) > 0:
+    mod = __import__(model_filename)
 
 # model name, change each iteration
 train_data_dir = '/data/data/train/'
@@ -39,7 +46,7 @@ val_generator = val_datagen.flow_from_directory(
         batch_size=32
         )
 
-model, model_name = build_model()
+model, model_name = mod.build_model()
 
 sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy',
