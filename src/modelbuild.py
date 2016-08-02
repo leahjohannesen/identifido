@@ -18,7 +18,7 @@ train_data_dir = '/data/data/train/'
 val_data_dir = '/data/data/val/'
 
 # parameters
-nb_epoch = 5
+nb_epoch = 25
 
 img_height, img_width = 128, 128
 
