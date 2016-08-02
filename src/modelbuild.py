@@ -1,8 +1,5 @@
 from keras.preprocessing.image import ImageDataGenerator
-from keras.models import Sequential
-from keras.layers import Convolution2D, MaxPooling2D, ZeroPadding2D
-from keras.layers import Activation, Dropout, Flatten, Dense
-from keras.optimizers import SGD
+from keras.callbacks import ModelCheckpoint
 import json
 import h5py
 import os
