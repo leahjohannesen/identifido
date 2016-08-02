@@ -69,5 +69,7 @@ model.save(model_dir + 'final_model.hdf5')
 hist = output.history
 params = output.params
 
-json.dump(hist, model_dir + 'history.json')
-json.dump(params, model_dir + 'params.json')
+with open(model_dir + 'history.json', 'wb') as h:
+    json.dump(hist, h)
+with open(model_dir + 'params.json', 'wb') as p:
+    json.dump(params, p)

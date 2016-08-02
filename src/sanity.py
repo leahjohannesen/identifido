@@ -21,7 +21,7 @@ train_data_dir = '/data/data/butts/train/'
 val_data_dir = '/data/data/butts/val/'
 
 # parameters
-nb_epoch = 300
+nb_epoch = 10
 
 img_height, img_width = 128, 128
 
@@ -59,9 +59,14 @@ output = model.fit_generator(
         	nb_val_samples=val_generator.N)
 
 # saves the output in the model_dir
-#model_dir = '/home/ubuntu/capstone/model/' + model_name + '/'
-#os.mkdir(model_dir)
+model_dir = '/home/ubuntu/capstone/model/' + 'sanity/'
+os.mkdir(model_dir)
 
-#model.save(model_dir + 'model_weights.hd5')
-#hist = output.history
-#params = output.params
+model.save(model_dir + 'final_model.hd5')
+hist = output.history
+params = output.params
+
+with open(model_dir + 'history.json', 'wb') as h:
+    json.dump(hist, h)
+with open(model_dir + 'params.json', 'wb') as p: 
+    json.dump(params, p) 
