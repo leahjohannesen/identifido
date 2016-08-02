@@ -9,19 +9,19 @@ import os
 import cPickle
 import sys
 
-model_path = '/home/ubuntu/capstone/src/pymodels/'
-sys.path.append(model_path)
-model_filename = sys.argv[1]
+#model_path = '/home/ubuntu/capstone/src/pymodels/'
+#sys.path.append(model_path)
+#model_filename = sys.argv[1]
 
-if len(model_filename) > 0:
-    mod = __import__(model_filename)
+#if len(model_filename) > 0:
+import pymodels.basic as mod
 
 # model name, change each iteration
-train_data_dir = '/data/data/train/'
-val_data_dir = '/data/data/val/'
+train_data_dir = '/data/data/butts/train/'
+val_data_dir = '/data/data/butts/val/'
 
 # parameters
-nb_epoch = 25
+nb_epoch = 300
 
 img_height, img_width = 128, 128
 
@@ -59,7 +59,9 @@ output = model.fit_generator(
         	nb_val_samples=val_generator.N)
 
 # saves the output in the model_dir
-model_dir = '/home/ubuntu/capstone/model/' + model_name + '/'
-os.mkdir(model_dir)
+#model_dir = '/home/ubuntu/capstone/model/' + model_name + '/'
+#os.mkdir(model_dir)
 
-model.save(model_dir + 'model_weights.hd5')
+#model.save(model_dir + 'model_weights.hd5')
+#hist = output.history
+#params = output.params
