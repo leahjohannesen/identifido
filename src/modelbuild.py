@@ -18,7 +18,7 @@ train_data_dir = '/data/data/train/'
 val_data_dir = '/data/data/val/'
 
 # parameters
-nb_epoch = 25
+nb_epoch = 5
 
 img_height, img_width = 128, 128
 
@@ -65,3 +65,9 @@ output = model.fit_generator(
                 callbacks=[checkpointer])
 
 model.save(model_dir + 'final_model.hdf5')
+
+hist = output.history
+params = output.params
+
+json.dump(hist, model_dir + 'history.json')
+json.dump(params, model_dir + 'params.json')
