@@ -50,16 +50,21 @@ val_generator = val_datagen.flow_from_directory(
 
 model, model_name = mod.build_model(train_generator.nb_class)
 
+# saves the output in the model_dir
+model_dir = '/home/ubuntu/capstone/model/' + model_name + '/'
+os.mkdir(model_dir)
+temp_path = model_dir + 'temp_model.hdf5'
+
+#update the model if stuff gets better
+checkpointer = ModelCheckpoint(filepath=temp_path, verbose=1, save_best_only=True)
+
 # this actually fits the model
 output = model.fit_generator(
         	train_generator,
         	samples_per_epoch=train_generator.N,
         	nb_epoch=nb_epoch,
         	validation_data=val_generator,
-        	nb_val_samples=val_generator.N)
+        	nb_val_samples=val_generator.N,
+                callbacks=[checkpointer])
 
-# saves the output in the model_dir
-model_dir = '/home/ubuntu/capstone/model/' + model_name + '/'
-os.mkdir(model_dir)
-
-model.save(model_dir + 'model_weights.hd5')
+model.save(model_dir + 'final_model.hdf5')
