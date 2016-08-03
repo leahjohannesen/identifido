@@ -36,7 +36,7 @@ if __name__ == "__main__":
     dir_name = sys.argv[1]
 
     model_dir = home_dir + 'model/' +  dir_name + '/'
-    model = load_model(model_dir + 'final_model.hd5')
+    model = load_model(model_dir + 'final_model.hdf5')
 
     model_hist = get_history()
     model_param = get_param()
