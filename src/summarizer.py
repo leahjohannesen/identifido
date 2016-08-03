@@ -1,6 +1,6 @@
 from keras.models import load_model
-import seaborn as sbn
 import matplotlib.pyplot as plt
+import seaborn as sbn
 import sys
 import json
 import numpy as np
