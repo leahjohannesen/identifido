@@ -1,3 +1,4 @@
+import globes as G 
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import ModelCheckpoint
 import json
@@ -6,16 +7,11 @@ import os
 import cPickle
 import sys
 
-model_path = '/home/ubuntu/capstone/src/pymodels/'
-sys.path.append(model_path)
+sys.path.append(G.NET)
 model_filename = sys.argv[1]
 
 if len(model_filename) > 0:
     mod = __import__(model_filename)
-
-# model name, change each iteration
-train_data_dir = '/data/data/train/'
-val_data_dir = '/data/data/val/'
 
 # parameters
 nb_epoch = 25
@@ -34,13 +30,13 @@ val_datagen = ImageDataGenerator(
         horizontal_flip=True)
 
 train_generator = train_datagen.flow_from_directory(
-        train_data_dir,
+        G.TRN,
         target_size=(img_width, img_height),
         batch_size=64
         )
 
 val_generator = val_datagen.flow_from_directory(
-        val_data_dir,
+        G.VAL
         target_size=(img_width, img_height),
         batch_size=64
         )
@@ -48,7 +44,7 @@ val_generator = val_datagen.flow_from_directory(
 model, model_name = mod.build_model(train_generator.nb_class)
 
 # saves the output in the model_dir
-model_dir = '/home/ubuntu/capstone/model/' + model_name + '/'
+model_dir = G.MOD + model_name + '/'
 os.mkdir(model_dir)
 temp_path = model_dir + 'temp_model.hdf5'
 

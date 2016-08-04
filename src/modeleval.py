@@ -1,3 +1,4 @@
+import globes as G
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import load_model
 import json
@@ -10,9 +11,9 @@ import numpy as np
 
 def eval(thingy, model_name):
 
-    img_dir = data_path + thingy + '/'
+    img_dir = G.DAT + thingy + '/'
 
-    model = load_model(model_path + model_name + '/final_model.hdf5')
+    model = load_model(G.MOD + model_name + '/final_model.hdf5')
 
     # parameters
     img_height, img_width = 128, 128
@@ -43,12 +44,9 @@ def eval(thingy, model_name):
     return df
 
 if __name__ == '__main__':
-    model_path = '/home/ubuntu/capstone/model/'
-    data_path = '/data/data/'
-    
     model_name = sys.argv[2]
     test_or_all = sys.argv[1]
 
     out_df = eval(test_or_all, model_name)
 
-    out_df.to_csv(model_path + model_name + '/' + test_or_all + '.csv')
+    out_df.to_csv(G.MOD + model_name + '/' + test_or_all + '.csv')
