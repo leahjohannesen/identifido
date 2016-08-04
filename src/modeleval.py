@@ -19,6 +19,8 @@ def eval(tora, torf, model_name):
         temp_or_final = '/final_model.hdf5'
     model = load_model(G.MOD + model_name + temp_or_final)
 
+
+
     # parameters
     img_height, img_width = 128, 128
 
@@ -28,7 +30,7 @@ def eval(tora, torf, model_name):
             fill_mode='constant')
 
     gen = datagen.flow_from_directory(
-            G.VAL,
+            img_dir,
             target_size=(img_width, img_height),
             batch_size=64,
             shuffle=False
