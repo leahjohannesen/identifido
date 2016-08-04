@@ -78,9 +78,9 @@ def cat_acc(path):
     plt.show()
 
 if __name__ == '__main__':
-    test_or_all = sys.argv[1]
+    trn_val_tst_all = sys.argv[1]
     temp_or_final = sys.argv[2]
     model_name = sys.argv[3]
 
-    csv_path = './model/' + model_name + '/' + test_or_all + '_' + temp_or_final + '.csv'
+    csv_path = './model/' + model_name + '/' + trn_val_tst_all + '_' + temp_or_final + '.csv'
     cat_acc(csv_path)   
