@@ -1,3 +1,4 @@
+import globes as G
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Convolution2D, MaxPooling2D, ZeroPadding2D
@@ -9,11 +10,6 @@ import os
 import cPickle
 import sys
 
-#model_path = '/home/ubuntu/capstone/src/pymodels/'
-#sys.path.append(model_path)
-#model_filename = sys.argv[1]
-
-#if len(model_filename) > 0:
 import pymodels.basic as mod
 
 # model name, change each iteration
@@ -59,7 +55,7 @@ output = model.fit_generator(
         	nb_val_samples=val_generator.N)
 
 # saves the output in the model_dir
-model_dir = '/home/ubuntu/capstone/model/' + 'sanity/'
+model_dir = G.MOD + 'sanity/'
 os.mkdir(model_dir)
 
 model.save(model_dir + 'final_model.hd5')

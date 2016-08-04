@@ -31,6 +31,7 @@ def img_check(img, breed_dir, bad):
         img = scni.imread(train_img_loc)
     except:
         os.remove(train_img_loc)
+        print 'Removed: ', train_img_loc
 
     try:
         diff = (img - bad).mean()
@@ -41,7 +42,7 @@ def img_check(img, breed_dir, bad):
         print 'Removed: ', train_img_loc
 
 if __name__ == '__main__':
-    img_dir = '/data/data/train/'
+    img_dir = '/data/data/all/'
     dir_list = os.listdir(img_dir)
 
     default_img = get_default()
