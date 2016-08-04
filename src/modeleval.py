@@ -54,4 +54,4 @@ if __name__ == '__main__':
 
     out_df = eval(test_or_all, temp_or_final, model_name)
 
-    out_df.to_csv(G.MOD + model_name + '/' + test_or_all + '_' + temp_or_final + '.csv')
+    out_df.to_csv(G.MOD + model_name + '/' + test_or_all + '_' + temp_or_final + '.csv', header=False           )

@@ -6,14 +6,14 @@ import numpy as np
 import sys
 
 def cat_acc(path):
-    f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2,2)
-    df = pd.read_csv(path, header=None)
+    f, ((ax1, ax2), (ax3, ax4), (ax5, ax6)) = plt.subplots(3,2)
+    df = pd.read_csv(path, index_col=0, header=None)
     df.columns = ['act', 'pred']
     df['right'] = df['pred'] == df['act']
 
     total_by_class = df.groupby('act').count()
     n_tot = total_by_class['pred'].values
-    n_show = 1
+    n_show = 10
 
     #number of correct
     pred_right_df = df.groupby('act').sum()
@@ -23,12 +23,15 @@ def cat_acc(path):
     x_sorted = np.argsort(right_per_arr)[::-1]
     
     ##hist of accuracies
-    sbn.distplot(right_per_arr, kde=False, ax=ax1)
+    sbn.distplot(right_per_arr, kde=False, ax=ax1, bins=25)
 
     ##top/bot 10
-    x_top = np.append(x_sorted[:n_show], x_sorted[-n_show:])
-    y_top = np.append(y_sorted[:n_show], y_sorted[-n_show:])
-    sbn.barplot(x_top, y_top, ax=ax2)
+    x_top = x_sorted[:n_show]
+    x_bot = x_sorted[-n_show:]
+    y_top = y_sorted[:n_show]
+    y_bot = y_sorted[-n_show:]
+    sbn.barplot(x_top, y_top, ax=ax3)
+    sbn.barplot(x_bot, y_bot, ax=ax4)
     
     ##most predicted/number
     num_pred_df = df.groupby('pred').count()
@@ -38,16 +41,19 @@ def cat_acc(path):
     x_pred_sorted = np.argsort(pred_per_arr)[::-1]
     
     #top/bot pred 10
-    x_num = np.append(x_pred_sorted[:n_show], x_pred_sorted[-n_show:])
-    y_num = np.append(y_pred_sorted[:n_show], y_pred_sorted[-n_show:])
-    sbn.barplot(x_num, y_num, ax=ax3)
+    x_num_top = x_pred_sorted[:n_show]
+    x_num_bot = x_pred_sorted[-n_show:]
+    y_num_top = y_pred_sorted[:n_show]
+    y_num_bot = y_pred_sorted[-n_show:]
+    sbn.barplot(x_num_top, y_num_top, ax=ax5)
+    sbn.barplot(x_num_bot, y_num_bot, ax=ax6)
 
     plt.show()
 
 if __name__ == '__main__':
-    model_name = sys.argv[2]
     test_or_all = sys.argv[1]
+    temp_or_final = sys.argv[2]
+    model_name = sys.argv[3]
 
-    #csv_path = G.MOD + model_name + '/' + test_or_all + '.csv'
-    csv_path = './data/test.csv'
+    csv_path = './model/' + model_name + '/' + test_or_all + '_' + temp_or_final + '.csv'
     cat_acc(csv_path)   

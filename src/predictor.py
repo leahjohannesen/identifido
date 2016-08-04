@@ -8,7 +8,7 @@ import json
 def predict(img):
     with open('/Users/lzkatz/Desktop/Galvanize/Capstone/Identifido/aux_files/breed_dict.json') as bd:
         classes = json.load(bd)
-    model_dir = '/Users/lzkatz/Desktop/Galvanize/Capstone/Identifido/model/basic/final_model.hdf5'
+    model_dir = '/Users/lzkatz/Desktop/Galvanize/Capstone/Identifido/model/deep_nodense/temp_model.hdf5'
     model = load_model(model_dir)
     img_dim = model.input_shape[2]
     img_res = imresize(img, (img_dim, img_dim, 3))
