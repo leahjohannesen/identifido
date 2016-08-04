@@ -49,12 +49,15 @@ def eval(tvta, torf, model_name):
     
     return df
 
+def make_csv(tvta, df)
+    out_path = G.MOD + model_name + '/' + test_or_all + '_' + tvta + '.csv'
+    df.to_csv(out_path, header=False)
+
 if __name__ == '__main__':
-    trn_val_tst_all = sys.argv[1] 
-    temp_or_final = sys.argv[2]
-    model_name = sys.argv[3]
+    temp_or_final = sys.argv[1]
+    model_name = sys.argv[2]
 
-    out_df = eval(trn_val_tst_all, temp_or_final, model_name)
-
-    out_df.to_csv(G.MOD + model_name + '/' + test_or_all + '_' + 
-                  trn_val_tst_all + '.csv', header=False)
+    blah = ['train', 'val', 'test', 'all']
+    for i in blah:
+        df = eval(blah, temp_or_final, model_name)
+        make_csv(blah, df)   
