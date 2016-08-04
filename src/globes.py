@@ -6,7 +6,7 @@ VAL = DAT + 'val/'
 TST = DAT + 'test/'
 
 #Capstone directories
-CAP = '/home/ubunut/capstone/'
+CAP = '/home/ubuntu/capstone/'
 APP = CAP + 'app/'
 AUX = CAP + 'aux_files/'
 MOD = CAP + 'model/'

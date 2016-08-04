@@ -9,11 +9,15 @@ import sys
 import pandas as pd
 import numpy as np
 
-def eval(thingy, model_name):
+def eval(tora, torf, model_name):
 
-    img_dir = G.DAT + thingy + '/'
+    img_dir = G.DAT + tora + '/'
 
-    model = load_model(G.MOD + model_name + '/final_model.hdf5')
+    if torf == 'temp':
+        temp_or_final = '/temp_model.hdf5' 
+    else:
+        temp_or_final = '/final_model.hdf5'
+    model = load_model(G.MOD + model_name + temp_or_final)
 
     # parameters
     img_height, img_width = 128, 128
@@ -24,7 +28,7 @@ def eval(thingy, model_name):
             fill_mode='constant')
 
     gen = datagen.flow_from_directory(
-            val_data_dir,
+            G.VAL,
             target_size=(img_width, img_height),
             batch_size=64,
             shuffle=False
@@ -44,9 +48,10 @@ def eval(thingy, model_name):
     return df
 
 if __name__ == '__main__':
-    model_name = sys.argv[2]
-    test_or_all = sys.argv[1]
+    test_or_all = sys.argv[1] 
+    temp_or_final = sys.argv[2]
+    model_name = sys.argv[3]
 
-    out_df = eval(test_or_all, model_name)
+    out_df = eval(test_or_all, temp_or_final, model_name)
 
-    out_df.to_csv(G.MOD + model_name + '/' + test_or_all + '.csv')
+    out_df.to_csv(G.MOD + model_name + '/' + test_or_all + '_' + temp_or_final + '.csv')
