@@ -6,7 +6,11 @@ app = Flask(__name__)
 # home page
 @app.route('/')
 def index():
-    return render_template('home.html')
+    return render_template('index.html')
+
+@app.route('/info')
+def info():
+    return render_template('info.html')
 
 @app.route('/submit')
 def submit():
