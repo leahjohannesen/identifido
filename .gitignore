@@ -2,3 +2,4 @@
 data
 models/*.pkl
 *.pyc
+*.hdf5
