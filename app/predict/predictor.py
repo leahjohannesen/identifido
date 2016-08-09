@@ -5,8 +5,7 @@ import json
 from PIL import Image
 
 def predict(img):
-    model_dir = '/Users/lzkatz/Desktop/Galvanize/Capstone/Identifido/model/deep_nodense/temp_model.hdf5'
-
+    model_dir = '/home/ubuntu/capstone/app/predict/model.hdf5'
     model = load_model(model_dir)
 
     img = img.resize((model.input_shape[3], model.input_shape[2]))
