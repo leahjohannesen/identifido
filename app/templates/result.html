@@ -1,7 +1,7 @@
 {% extends "basic.html" %}
 {% block body %}
 
-
+<br>
 
     <!-- Page Content -->
     <div class="container">
@@ -19,12 +19,12 @@
 
         <!-- Project One -->
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-4">
                 <a href="#">
                     <img class="img-responsive" src={{"../static/images/" + img + ".jpg"}} alt="">
                 </a>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-8">
                 <h3>{{breed}}</h3>
                 <h4>Percent: {{perc * 100}}</h4>
                 <p>{{desc}}</p>
