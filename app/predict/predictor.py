@@ -5,9 +5,9 @@ import json
 from PIL import Image
 
 def predict(img):
-    with open('/Users/lzkatz/Desktop/Galvanize/Capstone/Identifido/aux_files/breed_dict.json') as bd:
+    with open('/home/ubuntu/capstone/app/predict/breed_dict.json') as bd:
         classes = json.load(bd)
-    model_dir = '/Users/lzkatz/Desktop/Galvanize/Capstone/Identifido/model/deep_nodense/temp_model.hdf5'
+    model_dir = '/home/ubuntu/capstone/app/predict/model.hdf5'
 
     model = load_model(model_dir)
 
