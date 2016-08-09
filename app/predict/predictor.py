@@ -5,10 +5,7 @@ import json
 from PIL import Image
 
 def predict(img):
-    with open('/home/ubuntu/capstone/app/predict/breed_dict.json') as bd:
-        classes = json.load(bd)
     model_dir = '/home/ubuntu/capstone/app/predict/model.hdf5'
-
     model = load_model(model_dir)
 
     img = img.resize((model.input_shape[3], model.input_shape[2]))
@@ -23,7 +20,7 @@ def predict(img):
 
     breed_pred = []
     for i in sort_pred:
-        breed_pred.append((classes[str(i)], class_pred[i]))
+        breed_pred.append((i, class_pred[i]))
 
     return breed_pred
 
