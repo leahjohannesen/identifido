@@ -5,8 +5,6 @@ import json
 from PIL import Image
 
 def predict(img):
-    with open('/Users/lzkatz/Desktop/Galvanize/Capstone/Identifido/aux_files/breed_dict.json') as bd:
-        classes = json.load(bd)
     model_dir = '/Users/lzkatz/Desktop/Galvanize/Capstone/Identifido/model/deep_nodense/temp_model.hdf5'
 
     model = load_model(model_dir)
@@ -23,7 +21,7 @@ def predict(img):
 
     breed_pred = []
     for i in sort_pred:
-        breed_pred.append((classes[str(i)], class_pred[i]))
+        breed_pred.append((i, class_pred[i]))
 
     return breed_pred
 
