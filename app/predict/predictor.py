@@ -17,8 +17,6 @@ def predict(img):
     img = np.transpose(img, (2,0,1))
     img = np.array([img])
 
-    print img.shape
-
     class_pred = model.predict(img)
     class_pred = class_pred.flatten()
     sort_pred = np.argsort(class_pred)[:-6:-1]

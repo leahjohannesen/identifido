@@ -26,8 +26,7 @@ def classify():
     image = Image.open(request.files['imagefile'])
     results = predict(image)
     # predictions = predict(imagefile)
-    stuff = 'YOUR PREDICTIONS: <br> {0}'
-    return stuff.format(results)
+    return render_template('result.html', data=results)
 
 @app.route('/aboutme')
 def aboutme():
