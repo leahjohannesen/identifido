@@ -49,7 +49,7 @@ def eval(tvta, torf, model_name):
     
     return df
 
-def make_csv(tvta, df)
+def make_csv(tvta, df):
     out_path = G.MOD + model_name + '/' + test_or_all + '_' + tvta + '.csv'
     df.to_csv(out_path, header=False)
 

@@ -34,10 +34,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/submit">Submit</a></li>
-            <li><a href="/aboutme">About Me</a></li>
+            <li {% if request.path == '/' %} class="active" {% endif %}><a href="/">Home</a></li>
+            <li {% if request.path == '/about' %} class="active" {% endif %}><a href="/about">About</a></li>
+            <li {% if request.path == '/submit' %} class="active" {% endif %}><a href="/submit">Submit</a></li>
+            <li {% if request.path == '/aboutme' %} class="active" {% endif %}><a href="/aboutme">About Me</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
