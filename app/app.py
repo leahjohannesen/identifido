@@ -1,4 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, request, render_template
+from predict.predictor import predict
+import numpy as np
+from PIL import Image
+
 
 app = Flask(__name__)
 
@@ -15,6 +19,14 @@ def about():
 @app.route('/submit')
 def submit():
     return render_template('submit.html')
+
+@app.route('/classify', methods=['GET', 'POST'])
+def classify():
+    print 'Reading the img'
+    image = Image.open(request.files['imagefile'])
+    results = predict(image)
+    # predictions = predict(imagefile)
+    return render_template('result.html', data=results)
 
 @app.route('/aboutme')
 def aboutme():

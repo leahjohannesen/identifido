@@ -1,0 +1,11 @@
+{% extends "basic.html" %}
+{% block body %}
+<br><br>
+
+<h1>Results</h1>
+
+  {% for breed, perc in data %}
+    <br>Breed: {{ breed }} <br> Percent Likelihood: {{ perc }}<br>
+  {% endfor %}
+
+{% endblock %}
