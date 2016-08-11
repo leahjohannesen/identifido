@@ -1,6 +1,109 @@
 {% extends "basic.html" %}
 {% block body %}
-  <h1> DOG THINGS </h1>
+
+<div class="container">
+
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">About the Project
+            </h1>
+        </div>
+    </div>
+    <ol type="i">
+      <li><a href="#summary">Project summary</a></li>
+      <li><a href="#preproc">Data collection and preprocessing</a></li>
+      <li><a href="#nets">Neural nets</a></li>
+    </ol>
+
+    <h1 id="summary"></h1>
+    <hr><hr>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Quick project summary
+            </h4>
+            <p>
+              IdentiFido is a dog breed classification project based on convolutional neural networks (CNN).
+              Convolutional neural networks are a flavor of deep learning that have been developed
+              specifically for visual learning.
+            </p><p>
+              The original idea sprouted from my families history of owning several mixed breed dogs.
+              We've always just guessed at what they were based on general appearance/personality.
+              However, after delving into neural networks, I thought it would be interesting to try a
+              computational approach.
+            </p><p>
+              The goal of the project was to train on a large set of purebreed dogs. Once fitted,
+              the net would be able to take pictures of mixed breed dogs and predict the most similar
+              purebreeds, thus giving some insight into the possible pedigree of the mutt.
+            </p>
+        </div>
+    </div>
+
+    <h1 id="preproc"></h1>
+    <hr><hr>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Data collection and preprocessing</h4>
+            <h5>Stanford dogset</h5>
+            <p>
+              The first iteration of this project was based off the
+              <a href="http://vision.stanford.edu/aditya86/ImageNetDogs/">Stanford Dogs dataset</a>.
+              This set was gathered by Stanford for fine-grain image classification. This set was approximately
+              20k pictures and 120 breeds. This set is composed of images from ImageNet.
+            </p><p>
+              However, the breeds included several "dogs" that were classified as canis familiaris,
+              but weren't standare AKC dog breeds (ie African Wild Dog, Dhole). Also,
+              since this set was primarily made for fine-grain classification the dataset needed to be
+              appropriate for techniques such as SVM. This meant they had a pretty high standard for the images
+              they included in the set. Including:
+              <ul>
+                <li>200x200 or larger</li>
+                <li>Bounding boxes</li>
+                <li>No mixed pictures (multiple breeds, or puppies)</li>
+                <li>Any degenrate or unusal photos</li>
+              </ul>
+              This resulted in a rather small training set (after validation split) of approximately
+              12000 test pictures and 8000 validation pictures; about 100 pictures per class.
+            </p><p>
+              After some marginal success with basic neural net implementations on that dataset, that approach
+              was scrapped, and I decided to collect my own set.
+            </p>
+            <h5>AKC and ImageNet scraping</h5>
+            <p>
+              First step was scraping the official list of dogs from the <a href="www.akc.org">website</a>.
+              From there I went through ImageNet and searched each dog breed, and returned the number of
+              images from each. Only the breeds with >1000 images were kept, with the goal of having at least
+              500 training images per breed after bad/dead links were removed. This left the set with a total
+              of 98 breeds and approximately 95k pictures. After training/validation/test split, the test set was
+              ~50k images, with 20k for validation and test each.
+            </p>
+            <h5>Image preprocessing</h5>
+            <p>
+              Initially, no image preprocessing was done. All images were used and they were resized by the
+              PIL package in python simply by stretching/compressing each image to the target size of 128x128.
+            </p><p>
+              Once a baseline accuracy was set by tuning the model architecture, image preprocessing was
+              revisited. The baseline model had 37% validation accuracy and x% test accuracy.
+
+              Squaring - Cropping
+              Squaring - Padding
+            </p>
+        </div>
+    </div>
+
+    <h1 id="nets"></h1>
+    <hr><hr>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Basic convolutional neural networks</h4>
+            <p>
+
+            </p>
+        </div>
+    </div>
 
 
 {% endblock %}
