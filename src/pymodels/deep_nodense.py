@@ -4,7 +4,7 @@ from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.optimizers import SGD, Adam
 
 def build_model(n_class):
-    model_name = 'deep_nodense'
+    model_name = 'deep_nodense_square'
 
     model = Sequential()
     model.add(Convolution2D(32, 3, 3, input_shape=(3,128,128)))

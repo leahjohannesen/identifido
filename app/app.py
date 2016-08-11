@@ -5,7 +5,7 @@ from PIL import Image
 import json
 import re
 
-with open('/Users/lzkatz/Desktop/Galvanize/Capstone/Identifido/app/predict/app_dict.json') as ad:
+with open('/home/ubuntu/capstone/app/predict/app_dict.json') as ad:
     app_dict = json.load(ad)
 
 def proc_results(result_list, breed_dict):
@@ -51,4 +51,4 @@ def aboutme():
     return render_template('aboutme.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    app.run(host='0.0.0.0', port=8000)
