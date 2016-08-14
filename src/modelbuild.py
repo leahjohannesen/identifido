@@ -14,7 +14,7 @@ if len(model_filename) > 0:
     mod = __import__(model_filename)
 
 # parameters
-nb_epoch = 25
+nb_epoch = 50
 
 img_height, img_width = 128, 128
 
