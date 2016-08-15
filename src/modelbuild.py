@@ -14,9 +14,9 @@ if len(model_filename) > 0:
     mod = __import__(model_filename)
 
 # parameters
-nb_epoch = 25
+nb_epoch = 25 
 
-img_height, img_width = 128, 128
+img_height, img_width = 164, 164 
 
 # this is the augmentation configuration we will use for training
 train_datagen = ImageDataGenerator(
