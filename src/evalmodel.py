@@ -50,7 +50,7 @@ def eval(tvta, torf, model_name):
     return df
 
 def make_csv(tvta, df):
-    out_path = G.MOD + model_name + '/' + test_or_all + '_' + tvta + '.csv'
+    out_path = G.MOD + model_name + '/' + temp_or_final + '_' + tvta + '.csv'
     df.to_csv(out_path, header=False)
 
 if __name__ == '__main__':
@@ -59,5 +59,5 @@ if __name__ == '__main__':
 
     blah = ['train', 'val', 'test', 'all']
     for i in blah:
-        df = eval(blah, temp_or_final, model_name)
-        make_csv(blah, df)   
+        df = eval(i, temp_or_final, model_name)
+        make_csv(i, df)   
