@@ -50,9 +50,11 @@ def cat_acc(path):
     ##top/bot 10
     x_acc_sort = np.argsort(right_per_arr)[::-1]
     x_acc_sort_lab = get_breed_labels(x_acc_sort, breed_dict)
-    sbn.barplot(x_master_lab, right_per_arr, ax=ax31, order=x_acc_sort_lab)
-    sbn.barplot(x_master_lab, n_tot, ax=ax32, order=x_acc_sort_lab)
-    
+    sbn.barplot(x_master_lab, right_per_arr, ax=ax31, order=x_acc_sort_lab, color='b')
+    ax31.set_ylabel('% Accuracy')
+    sbn.barplot(x_master_lab, n_tot, ax=ax32, order=x_acc_sort_lab, color='b')
+    ax32.set_ylabel('Number of pictures')
+
     ##most predicted/number
     num_pred_df = df.groupby('pred').count()
     pred_arr = num_pred_df['right'].values
@@ -61,8 +63,10 @@ def cat_acc(path):
     #top/bot pred 10
     x_pred_sort = np.argsort(pred_per_arr)[::-1]
     x_pred_sort_lab = get_breed_labels(x_pred_sort, breed_dict)
-    sbn.barplot(x_master_lab, pred_per_arr, ax=ax41, order=x_pred_sort_lab)
-    sbn.barplot(x_master_lab, n_tot, ax=ax42, order=x_pred_sort_lab)
+    sbn.barplot(x_master_lab, pred_per_arr, ax=ax41, order=x_pred_sort_lab, color='r')
+    ax41.set_ylabel('Times Predicted / # of Pictures')
+    sbn.barplot(x_master_lab, n_tot, ax=ax42, order=x_pred_sort_lab, color='r')
+    ax42.set_ylabel('# of Pictures')
 
     ax1.set_title('Histogram of Accuracies')
     ax2.set_title('# of Pics per Breed')

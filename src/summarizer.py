@@ -20,6 +20,8 @@ def acc_graph(history, ax):
     ax.plot(train_acc, label='Train')
     ax.plot(val_acc, label='Val')
     ax.set_title('Model accuracy')
+    ax.set_xlabel('Epoch')
+    ax.set_ylabel('Accuracy')
     ax.legend(loc=4)
 
 def loss_graph(history, ax):
@@ -29,6 +31,8 @@ def loss_graph(history, ax):
     ax.plot(train_loss, label='Train')
     ax.plot(val_loss, label='Val')
     ax.set_title('Model loss')
+    ax.set_xlabel('Epoch')
+    ax.set_ylabel('Model loss')
     ax.legend()
 
 if __name__ == "__main__":

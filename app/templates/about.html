@@ -14,6 +14,7 @@
       <li><a href="#summary">Project summary</a></li>
       <li><a href="#preproc">Data collection and preprocessing</a></li>
       <li><a href="#nets">Neural nets</a></li>
+      <li><a href="#visualization">Visualization</a></li>
     </ol>
 
     <h1 id="summary"></h1>
@@ -54,7 +55,7 @@
               20k pictures and 120 breeds. This set is composed of images from ImageNet.
             </p><p>
               However, the breeds included several "dogs" that were classified as canis familiaris,
-              but weren't standare AKC dog breeds (ie African Wild Dog, Dhole). Also,
+              but weren't standard AKC dog breeds (ie African Wild Dog, Dhole). Also,
               since this set was primarily made for fine-grain classification the dataset needed to be
               appropriate for techniques such as SVM. This meant they had a pretty high standard for the images
               they included in the set. Including:
@@ -62,7 +63,7 @@
                 <li>200x200 or larger</li>
                 <li>Bounding boxes</li>
                 <li>No mixed pictures (multiple breeds, or puppies)</li>
-                <li>Any degenrate or unusal photos</li>
+                <li>Any degenerate or unusal photos</li>
               </ul>
               This resulted in a rather small training set (after validation split) of approximately
               12000 test pictures and 8000 validation pictures; about 100 pictures per class.
@@ -85,10 +86,9 @@
               PIL package in python simply by stretching/compressing each image to the target size of 128x128.
             </p><p>
               Once a baseline accuracy was set by tuning the model architecture, image preprocessing was
-              revisited. The baseline model had 37% validation accuracy and x% test accuracy.
-
-              Squaring - Cropping
-              Squaring - Padding
+              revisited. The baseline model had 36%/66% top1/top5 accuracy. Changeing the the imagepreprocessing
+              from stretching to cropping or zero padding had no major impact on overall accuracy, however
+              it did change how accurate the individual groups were.
             </p>
         </div>
     </div>
@@ -98,9 +98,121 @@
 
     <div class="row">
         <div class="col-md-8">
-            <h4>Basic convolutional neural networks</h4>
+            <h4>Convolutional Neural Networks</h4>
+            <h5>Convolution layer</h5>
             <p>
+              As stated earlier, convolution neural nets are a special flavor of deep learning that is
+              particularly useful in data that has a spatial relationship. For each convolution layer,
+              a filter of weights is passed over the image and a resulting set of numbers is obtained.
+              Convolution layers are similar to your more standard feature extraction, and the number
+              of filters per convolution layer is similar to the number of nodes in a standard neural
+              net.
+            </p><p>
+              The following is a visual representation of a 5x5 image being passed over by a 3x3 filter
+              with weights:
+            </p><p>
+              1 0 1<br>0 1 0 <br>1 0 1
+            </p><p>
+              <img src="../static/pics/convolution.gif" alt="Convolution demo"
+               style="width:342px;height:250px;"><br>
+              Source: <a href="http://deeplearning.stanford.edu/wiki/index.php/Feature_extraction_using_convolution">
+                Stanford's Deep Learning Wiki</a>
+            </p>
+            <hr>
+            <h5>Pooling layer</h5>
+            <p>
+              Another popular layer is the pooling layer. The following example is a max pooling layer. It
+              takes a 4x4 image and reduces the size by taking the average of each 2x2 corner. Pooling layers
+              are particularly helpful in reducing the total shape of each layer.
+            </p><p>
+              <img src="../static/pics/maxpool.jpeg" alt="Pooling layer"
+               style="width:437px;height:200px;"><br>
+              Source: <a href="http://cs231n.github.io/">Stanford's CNN class</a>
+            </p>
+            <hr>
+            <h5>My network</h5>
+            <p>
+              The following is the general structure of my neural network ():
+            </p><p>
+              <img src="../static/pics/CNN.jpg" alt="Basic Net Structure"
+              style="width:667px;height:150px;">
+            </p><p>
+              The input layer is a standard RBG picture reduced to 128x128 giving it an overall shape of
+              3x128x128.
+            </p><p>
+              The first convolution layer contains 32 3x3 filters (similar to above). This gives
+              the output from the layer a shape of 32x128x128.
+            </p><p>
+              From there, the same process repeats with another 32x3x3 convolution, resulting in the same
+              32x128x128 output shape.
+            </p><p>
+              After this is the first pooling layer. This max pooling layer takes the max value from each
+              2x2 square in each of the 32 filter-layers. The output shape is therefore 32x64x64.
+            </p><p>
+              Following this is more convolution layers, this time expanding to 64x3x3. This in combination
+              with the previous pooling layer yields an output shape of 64x64x64.
+            </p><p>This general approach repeats several times, increasing the number of filters through
+              convolutions, while decreasing the "image" size through pooling until the output shape is
+              1024x8x8.
+            </p><p>
+              At this point, an average pool across each filter/layer is used to reduce the shape to
+              1024x1x1. This is equivalent to a 1024 node dense layer.
+            </p><p>
+              This flattened layer is fully connected to the output/softmax layer which gives final
+              breed predictions.
+            </p><p>
+              This is a very brief overview of basic CNNs and how they were used in Identifido. For
+              more, <a href="http://cs231n.github.io/">Stanford's CS231n</a> is a great resource.
+            </p>
+        </div>
+    </div>
 
+    <h1 id="visualization"></h1>
+    <hr><hr>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Visualization</h4>
+            <p>
+              One of the difficulties in neural nets is understanding what the model is doing during
+              training. They are somewhat black boxish. To that end, I made some quick visualizations
+              to see how my model was training.
+            </p>
+            <h6>Model accuracy/loss</h6>
+            <p>
+              A quick visualization of training history showed when my model maxed out on validation
+              accuracy and started overfitting.
+            </p><p>
+              <img src="../static/pics/loss_acc.png" alt="Model loss and accuracy over time"
+               style="width:600px;height:400px;">
+            </p>
+            <h6>Class accuracies</h6>
+            <p>
+              A histogram of class accuracies allowed me to compare the distributions between differnet
+              model types and whether or not the accuracies were concentrated with outliers, or more
+              spread across the spectrum like in the picture below.
+            </p><p>
+              <img src="../static/pics/hist_square.png" alt="Accuracy histogram"
+               style="width:400px;height:300px;">
+            </p>
+            <h6>Accuracy by class</h6>
+            <p>
+              The following chart showed the individual breakdown of the accuracies by class as well
+              the number of images in that class. This allowed exploration of the impact of the model
+              architecture on accuracy by class, and how that accuracy was impacted by the number
+              of pictures available to the model.
+            </p><p>
+              <img src="../static/pics/acc.png" alt="Accuracy histogram"
+               style="width:800px;height:400px;">
+            </p>
+            <h6>Predictions by class</h6>
+            <p>
+              Similar to above, this following chart allows for exploration of how model architecture
+              and other hyperparamets impacted the classes being predicted by the model, and any
+              interaction with the number of pictures available to the model.
+            </p><p>
+              <img src="../static/pics/pred.png" alt="Accuracy histogram"
+               style="width:800px;height:400px;">
             </p>
         </div>
     </div>
