@@ -4,7 +4,7 @@ from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.optimizers import SGD, Adam
 
 def build_model(n_class):
-    model_name = 'ensemble_basic'
+    model_name = 'ensemble_onehidden'
 
     model = Sequential()
     model.add(Dense(n_class, input_dim=392))
