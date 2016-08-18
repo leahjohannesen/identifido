@@ -14,7 +14,7 @@ def proc_results(result_list, breed_dict):
         breed_idx = str(tup[0])
         breed_name = breed_dict[breed_idx][0]
         breed_desc = breed_dict[breed_idx][1]
-        breed_per = tup[1]
+        breed_per = "{0:.3f}".format(tup[1]*100)
         nospace = re.sub('\s*', '', breed_name)
         new_tup = (breed_name, breed_desc, breed_per, nospace)
         new_list.append(new_tup)
