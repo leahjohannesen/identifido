@@ -1,0 +1,1 @@
+{"verbose": 1, "nb_epoch": 25, "batch_size": 32, "metrics": ["loss", "acc", "val_loss", "val_acc"], "nb_sample": 53865, "do_validation": true}
