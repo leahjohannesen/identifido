@@ -4,3 +4,4 @@ models/*.pkl
 *.pyc
 *.hdf5
 summaries
+*.npy
