@@ -29,7 +29,7 @@
               Convolutional neural networks are a flavor of deep learning that have been developed
               specifically for visual learning.
             </p><p>
-              The original idea sprouted from my families history of owning several mixed breed dogs.
+              The original idea sprouted from my family's history of owning several mixed breed dogs.
               We've always just guessed at what they were based on general appearance/personality.
               However, after delving into neural networks, I thought it would be interesting to try a
               computational approach.
@@ -55,7 +55,7 @@
               20k pictures and 120 breeds. This set is composed of images from ImageNet.
             </p><p>
               However, the breeds included several "dogs" that were classified as canis familiaris,
-              but weren't standard AKC dog breeds (ie African Wild Dog, Dhole). Also,
+              but weren't standard AKC dog breeds (i.e. African Wild Dog, Dhole). Also,
               since this set was primarily made for fine-grain classification the dataset needed to be
               appropriate for techniques such as SVM. This meant they had a pretty high standard for the images
               they included in the set. Including:
@@ -63,7 +63,7 @@
                 <li>200x200 or larger</li>
                 <li>Bounding boxes</li>
                 <li>No mixed pictures (multiple breeds, or puppies)</li>
-                <li>Any degenerate or unusal photos</li>
+                <li>Any degenerate or unusual photos</li>
               </ul>
               This resulted in a rather small training set (after validation split) of approximately
               12000 test pictures and 8000 validation pictures; about 100 pictures per class.
@@ -73,7 +73,7 @@
             </p>
             <h5>AKC and ImageNet scraping</h5>
             <p>
-              First step was scraping the official list of dogs from the <a href="www.akc.org">website</a>.
+              The first step was scraping the official list of dogs from the <a href="www.akc.org">website</a>.
               From there I went through ImageNet and searched each dog breed, and returned the number of
               images from each. Only the breeds with >1000 images were kept, with the goal of having at least
               500 training images per breed after bad/dead links were removed. This left the set with a total
@@ -86,7 +86,7 @@
               PIL package in python simply by stretching/compressing each image to the target size of 128x128.
             </p><p>
               Once a baseline accuracy was set by tuning the model architecture, image preprocessing was
-              revisited. The baseline model had 36%/66% top1/top5 accuracy. Changeing the the imagepreprocessing
+              revisited. The baseline model had 36%/66% top1/top5 accuracy. Changing the image preprocessing
               from stretching to cropping or zero padding had no major impact on overall accuracy, however
               it did change how accurate the individual groups were.
             </p>
@@ -161,6 +161,24 @@
               This flattened layer is fully connected to the output/softmax layer which gives final
               breed predictions.
             </p><p>
+              The final structure used in the model was:
+              <ul>
+                <li>Input layer, 3x128x128</li>
+                <li>Convolution #1, 32@3x3</li>
+                <li>Convolution #2, 32@3x3</li>
+                <li>MaxPool #1, 2x2</li>
+                <li>Convolution #3, 64@3x3</li>
+                <li>Convolution #4, 128@3x3</li>
+                <li>MaxPool #2, 2x2</li>
+                <li>Convolution #5, 256@3x3</li>
+                <li>MaxPool #3, 2x2</li>
+                <li>Convolution #6, 512@3x3</li>
+                <li>MaxPool #4, 2x2</li>
+                <li>Convolution #7, 1028@3x3</li>
+                <li>AvgPool #1, 8x8</li>
+                <li>Output layer, Dense with 98 Nodes</li>
+              </ul>
+            </p><p>
               This is a very brief overview of basic CNNs and how they were used in Identifido. For
               more, <a href="http://cs231n.github.io/">Stanford's CS231n</a> is a great resource.
             </p>
@@ -188,7 +206,7 @@
             </p>
             <h6>Class accuracies</h6>
             <p>
-              A histogram of class accuracies allowed me to compare the distributions between differnet
+              A histogram of class accuracies allowed me to compare the distributions between different
               model types and whether or not the accuracies were concentrated with outliers, or more
               spread across the spectrum like in the picture below.
             </p><p>
@@ -197,7 +215,7 @@
             </p>
             <h6>Accuracy by class</h6>
             <p>
-              The following chart showed the individual breakdown of the accuracies by class as well
+              The following chart showed the individual breakdown of the accuracies by class as well as
               the number of images in that class. This allowed exploration of the impact of the model
               architecture on accuracy by class, and how that accuracy was impacted by the number
               of pictures available to the model.
@@ -207,7 +225,7 @@
             </p>
             <h6>Predictions by class</h6>
             <p>
-              Similar to above, this following chart allows for exploration of how model architecture
+              Similar to above, the following chart allows for exploration of how model architecture
               and other hyperparamets impacted the classes being predicted by the model, and any
               interaction with the number of pictures available to the model.
             </p><p>
