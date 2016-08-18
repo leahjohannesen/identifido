@@ -7,6 +7,8 @@ from PIL import Image
 import pandas as pd
 import globes as G
 from sklearn.manifold import TSNE
+import seabotn as sbn
+import matplotlib.pyplot as plt
 
 def predict():
     model1_dir = G.MOD + 'deep_nodense/temp_model.hdf5'
@@ -55,7 +57,7 @@ def tsne():
 
     x_trans = tsne.fit_transform(x)
 
-    np.save('x_trans', x_trans)
+    plt.plot(x_trans)
 
 if __name__ == '__main__':
     #results = predict()
